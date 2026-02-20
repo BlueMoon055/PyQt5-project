@@ -23,7 +23,6 @@ def move_element_in_done():
         list_right.addItem(it_text)
         list_left.setCurrentRow(-1)
 
-
 def move_element_in_tasks_list():
     b = list_right.currentItem()
     if b:
@@ -31,7 +30,6 @@ def move_element_in_tasks_list():
         list_right.takeItem(list_right.currentRow())
         list_left.addItem(take_text)
         list_right.setCurrentRow(-1)
-
 
 def delete_all_elements_done():
     list_right.clear()
@@ -45,19 +43,17 @@ app = QApplication([]) #создание объекта-приложения
 app.setWindowIcon(QIcon("иконка.jpg"))
 main_win = QWidget() #создание объекта-окна
 main_win.resize(700, 400) #задать размеры окна
+main_win.setWindowTitle('список дел') #задать название окну
+main_win.show() #сделать объект-окно видимым
 
 palette = main_win.palette()
 palette.setBrush(main_win.backgroundRole(), QBrush(QPixmap('фон.png')))
 main_win.setPalette(palette)
-# Установить розовый цвет для виджетов
-main_win.setStyleSheet("QPushButton, QLabel { background-color: pink; }")
+main_win.setStyleSheet("QPushButton, QLabel { background-color: pink; }") # Установить розовый цвет для виджетов
 
-main_win.setWindowTitle('список дел') #задать название окну
-main_win.show() #сделать объект-окно видимым
+# виджеты
 list_left = QListWidget()
 list_right = QListWidget()
-
-
 tasks_text = QLabel('список дел:')
 delete_all_left = QPushButton('удалить все')
 delete_all_right = QPushButton('удалить все')
@@ -99,7 +95,6 @@ v_line3.addLayout(h_line2)
 main_line.addLayout(v_line1)
 main_line.addLayout(v_line2)
 main_line.addLayout(v_line3)
-
 main_win.setLayout(main_line) #загрузка заполненной линии на окно приложения
 
 b_add.clicked.connect(add_1)
