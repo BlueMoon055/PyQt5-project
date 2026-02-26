@@ -25,14 +25,7 @@ def add_to_db(text): #добавление заметки по кнопке в �
     connection.commit()  # сохранение изменений
     connection.close()  # сохранение изменений
 
-def delete_fom_db(a, b): # a, b - параметры
-    connection = sqlite3.connect('della.db')  # создание, подключение к бд
-    cursor = connection.cursor()  # создание объекта-курсора
-    cursor.execute('''DELETE FROM my_list WHERE name=? AND ind=?''', (a, b))
-    connection.commit()
-    connection.close()
-
-def delete_fom_db_right(a, b):  # a, b - параметры
+def delete_from_db(a, b): # a, b - параметры
     connection = sqlite3.connect('della.db')  # создание, подключение к бд
     cursor = connection.cursor()  # создание объекта-курсора
     cursor.execute('''DELETE FROM my_list WHERE name=? AND ind=?''', (a, b))
@@ -48,10 +41,10 @@ def delete_all_elements(): # функция для кнопки удалить �
     list_left.clear() # очистить лист
 
 def delete_1_element(): # функция для кнопки удалить выбранную заметку (левый список)
-    list_left.currentItem() # выбрать элемент
-    list_left.takeItem(list_left.currentRow()) # удаляем выбранный элемент
-    delete_fom_db(list_left.currentItem(), 0) # в скобках аргументы
+    delete_from_db(list_left.currentItem().text(), 0) # в скобках аргументы
+    list_left.takeItem(list_left.currentRow())  # удаляем выбранный элемент
     list_left.setCurrentRow(-1) # выделить строку под номером -1
+
 
 def move_element_in_done(): # функция для кнопи переместить в сделано
     a = list_left.currentItem() # выбрать элемент
@@ -75,7 +68,6 @@ def delete_all_elements_done(): # функция для кнопки удали�
 def delete_1_element_done(): # функция для кнопки удалить выбранную заметку (правый список)
     list_right.currentItem() # выбрать элемент
     list_right.takeItem(list_right.currentRow()) # удалить выбранную заметку
-    delete_fom_db(list_right.currentItem(), 1)
     list_right.setCurrentRow(-1) # выделить строку под номером -1
 
 app = QApplication([]) # создание объекта-приложения
@@ -146,4 +138,5 @@ list_of_tasks.clicked.connect(move_element_in_tasks_list)
 delete_all_right.clicked.connect(delete_all_elements_done)
 delete1_right.clicked.connect(delete_1_element_done)
 create_db()
+
 app.exec_() #оставлять приложение активным
